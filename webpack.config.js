@@ -3,14 +3,17 @@ const htmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
   mode: "development",
   entry: ["react-hot-loader/patch", "./src"],
   resolve: {
-    modules: ["node_modules"],
+    // root: path.resolve("./src"),
+    modules: [path.resolve("./src"), "node_modules"],
     extensions: [".ts", ".tsx", ".js", ".css", ".scss"],
   },
+
   module: {
     rules: [
       {
@@ -59,7 +62,7 @@ module.exports = {
     path: path.resolve("./build"),
     filename: "[name].[chunkhash].js",
   },
-  resolve: { extensions: [".js", ".tsx"] },
+  resolve: { extensions: [".js", ".ts", ".tsx"], preferRelative: true },
   devServer: {
     // contentBase: __dirname + "/build/",
     // inline: true,
@@ -73,6 +76,9 @@ module.exports = {
     // },
   },
   plugins: [
+    new webpack.DefinePlugin({
+      API_URL: JSON.stringify("https://jsonplaceholder.typicode.com"),
+    }),
     new htmlWebpackPlugin({
       template: "./src/index.html",
     }),

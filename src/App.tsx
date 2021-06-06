@@ -1,11 +1,11 @@
 import { hot } from "react-hot-loader/root";
 import React, { useEffect } from "react";
-import styles from "./App.module.css";
-import imgtest from "./assets/logo_2020.png";
-
+import styles from "App.module.css";
+import imgtest from "assets/logo_2020.png";
+import { TIMEOUT } from "./@api/rest/a";
 function App(): JSX.Element {
   useEffect(() => {
-    console.log("앗!");
+    console.log(TIMEOUT);
   }, []);
   return (
     <div className={styles.test}>
